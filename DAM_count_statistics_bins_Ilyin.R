@@ -32,6 +32,7 @@
 ########################################################################
 rm(list=ls())
 library(gplots)
+library(dplyr)
 library(ggplot2)
 library(GGally)
 
@@ -125,7 +126,11 @@ DATA <- bins
                                byrow=F, dimnames=NULL))
   names(stat) <- c("chr", "bins.number", "chr.length.bp", "chr.length.proportion", colnames(DATA.only)[1:(ncol(DATA.only))])
   stat$chr <- chrs
-  stat$chr.length.bp <- c(23011544, 21146708, 24543557, 27905053, 22422827)
+  if (any(grepl("Het", DATA$chr))){
+    stat$chr.length.bp <- c(23011544, 21146708, 24543557, 27905053, 1351857, 22422827, 368872, 3288761, 2555491, 2517507, 204112, 347038)
+  } else {
+    stat$chr.length.bp <- c(23011544, 21146708, 24543557, 27905053, 22422827)
+  }
   genome.length <- sum(stat$chr.length.bp)
   stat$chr.length.proportion <- round(100 * stat$chr.length.bp / genome.length, digits=2)
   for (j in 1:(ncol(DATA.only))){
