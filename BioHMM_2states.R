@@ -2,18 +2,17 @@
 library("dplyr")
 library("snapCGH")
 library("GenomicRanges")
+# Empty workspace
+rm(list=ls(all=T))
 # VARIABLES
 heterochrom = T
 lastcol = 4 # last column of file with genomic intervals (e.g. gatcs.txt, bins.txt) that 
             # were used in Dam_count script
 
-# Empty workspace
-rm(list=ls(all=T))
-
 # Set directory with file from Dam_count_statistics as work directory
 # Use file obtained from Dam_count_statistics script
 # /CSV/06.Dam.Normalized.DATA.csv
-setwd("YourDir/")
+setwd("~/IMG/DamID/Neurons_hp1_lam_pc/19.12.16_v2.0/")
 
 # Load data
 DATA <- as_data_frame(read.delim("CSV/06.Dam.Normalized.DATA.csv", header=T, as.is=T, dec=".", sep = ';'))
