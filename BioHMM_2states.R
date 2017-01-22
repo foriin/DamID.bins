@@ -2,9 +2,11 @@
 library("dplyr")
 library("snapCGH")
 library("GenomicRanges")
+
 # Empty workspace
 rm(list=ls(all=T))
 # VARIABLES
+
 heterochrom = T
 lastcol = 4 # last column of file with genomic intervals (e.g. gatcs.txt, bins.txt) that 
             # were used in Dam_count script
@@ -12,10 +14,10 @@ lastcol = 4 # last column of file with genomic intervals (e.g. gatcs.txt, bins.t
 # Set directory with file from Dam_count_statistics as work directory
 # Use file obtained from Dam_count_statistics script
 # /CSV/06.Dam.Normalized.DATA.csv
-setwd("~/IMG/DamID/Neurons_hp1_lam_pc/19.12.16_v2.0/")
+setwd("D:/IMG/DamID/Neurons HP1 Lam Pc/22.12.16_het_added/")
 
 # Load data
-DATA <- as_data_frame(read.delim("CSV/06.Dam.Normalized.DATA.csv", header=T, as.is=T, dec=".", sep = ';'))
+DATA <- read.delim("CSV/06.Dam.Normalized.DATA.csv", header=T, as.is=T, dec=".", sep = ';')
 
 # Take only the chromosomes "2L", "2R", "3L", "3R" and "X" for the subsequent analysis
 # If heterochrom is True take also heterochromatic data
@@ -23,6 +25,7 @@ DATA <- as_data_frame(read.delim("CSV/06.Dam.Normalized.DATA.csv", header=T, as.
 
 chroms = if (heterochrom){ c("2L", "2LHet", "2R", "2RHet", "3L", "3LHet", "3R", "3RHet", "X", "XHet", "4", "YHet")
 }else{c("2L", "2R", "3L", "3R", "X")}
+
 
 DATA.chrs <- lapply(DATA[(lastcol + 1):ncol(DATA)], function(x){
   names(x) = lapply(chroms, function(y) filter(cbind(DATA[1:lastcol], "DamID.value" = x), chr == y, !is.na(DamID.value)))
